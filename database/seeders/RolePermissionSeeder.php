@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -16,11 +17,12 @@ class RolePermissionSeeder extends Seeder
      */
     public function run()
     {
-         // Create Roles
-         $roleSuperAdmin = Role::create(['name' => 'superadmin']);
-         $roleAdmin = Role::create(['name' => 'admin']);
-         $roleEditor = Role::create(['name' => 'editor']);
-         $roleUser = Role::create(['name' => 'user']);
+        $guard_name = 'admin';
+        // Create Roles
+        $roleSuperAdmin = Role::create(['name' => 'superadmin','guard_name' => $guard_name]);
+        //  $roleAdmin = Role::create(['name' => 'admin']);
+        //  $roleEditor = Role::create(['name' => 'editor']);
+        //  $roleUser = Role::create(['name' => 'user']);
 
 
          // Permission List as array
@@ -56,6 +58,17 @@ class RolePermissionSeeder extends Seeder
                 ]
             ],
             [
+                'group_name' => 'user',
+                'permissions' => [
+                    // user Permissions
+                    'user.create',
+                    'user.view',
+                    'user.edit',
+                    'user.delete',
+                    'user.approve',
+                ]
+            ],
+            [
                 'group_name' => 'role',
                 'permissions' => [
                     // role Permissions
@@ -74,6 +87,21 @@ class RolePermissionSeeder extends Seeder
                     'profile.edit',
                 ]
             ],
+            [
+                'group_name' => 'pages',
+                'permissions' => [
+                    // Pages Permissions
+                    'pages.home',
+                ]
+            ],
+            [
+                'group_name' => 'settings',
+                'permissions' => [
+                    // Settings Permissions
+                    'settings.site',
+                    'settings.social',
+                ]
+            ],
         ];
 
 
@@ -82,10 +110,17 @@ class RolePermissionSeeder extends Seeder
             $permissionGroup = $permissions[$i]['group_name'];
             for ($j = 0; $j < count($permissions[$i]['permissions']); $j++) {
                 // Create Permission
-                $permission = Permission::create(['name' => $permissions[$i]['permissions'][$j], 'group_name' => $permissionGroup]);
+                $permission = Permission::create([
+                    'name' => $permissions[$i]['permissions'][$j], 
+                    'guard_name' => $guard_name,
+                    'group_name' => $permissionGroup
+                ]);
                 $roleSuperAdmin->givePermissionTo($permission);
                 $permission->assignRole($roleSuperAdmin);
             }
         }
+
+        $admin = Admin::where('email', 'superadmin@mail.com')->first();
+        $admin->assignRole($roleSuperAdmin);
     }
 }
