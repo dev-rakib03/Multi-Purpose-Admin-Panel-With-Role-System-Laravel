@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 //frontend
-use App\Http\Controllers\frontend\homeController;
+use App\Http\Controllers\Frontend\Home\homeController;
 
 
 

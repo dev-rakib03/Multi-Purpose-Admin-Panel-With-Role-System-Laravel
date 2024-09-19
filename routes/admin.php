@@ -2,15 +2,15 @@
 use Illuminate\Support\Facades\Route;
 
 //admin
-use App\Http\Controllers\backend\Auth\ForgotPasswordController;
-use App\Http\Controllers\backend\Auth\LoginController;
-use App\Http\Controllers\backend\adminsController;
-use App\Http\Controllers\backend\dashboardController;
-use App\Http\Controllers\backend\rolesController;
-use App\Http\Controllers\backend\usersController;
-use App\Http\Controllers\backend\settingsController;
-use App\Http\Controllers\backend\socialController;
-use App\Http\Controllers\backend\page\adminhomeController;
+use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\Admins\adminsController;
+use App\Http\Controllers\Admin\Dashboard\dashboardController;
+use App\Http\Controllers\Admin\Roles\rolesController;
+use App\Http\Controllers\Admin\Users\usersController;
+use App\Http\Controllers\Admin\Settings\settingsController;
+use App\Http\Controllers\Admin\Settings\socialController;
+use App\Http\Controllers\Admin\Page\adminhomeController;
 
 
 
